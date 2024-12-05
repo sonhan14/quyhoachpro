@@ -49,11 +49,11 @@ const AppRoutes = ({ onLocationChange }) => {
 
     useEffect(() => {
         if (onLocationChange) {
-            onLocationChange(location.pathname + location.search);
+            onLocationChange(location.pathname);
         }
     }, [location, onLocationChange]);
 
-    return null; // Không cần hiển thị gì
+    return null;
 };
 
 function App() {
@@ -160,12 +160,20 @@ function App() {
 
     const router = createBrowserRouter(item);
 
+    const handleLocationChange = (path) => {
+        if (window.gtag) {
+            window.gtag('event', 'page_view', {
+                page_path: path,
+                page_title: document.title,
+            });
+        }
+    };
 
     return (
         <>
             <RouterProvider router={router}>
                 {/* Sử dụng AppRoutes để theo dõi thay đổi location */}
-                <AppRoutes onLocationChange={(path) => pageView(path)} />
+                <AppRoutes onLocationChange={handleLocationChange} />
             </RouterProvider>
         </>
     );
