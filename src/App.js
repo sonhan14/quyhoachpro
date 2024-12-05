@@ -1,5 +1,5 @@
 import Header from './components/Header/Header';
-import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Outlet, RouterProvider, createBrowserRouter, useLocation } from 'react-router-dom';
 import './index.css';
 import './App.scss';
 import './styles/map.scss';
@@ -26,7 +26,8 @@ import AuctionInfor from './components/Auction/AuctionInfor';
 import LatestNews from './components/News/categorizeNews/LatestNews';
 import HotNews from './components/News/categorizeNews/HotNews';
 import useWindowSize from './hooks/useWindowSise.js';
-
+import React, { useEffect } from 'react';
+import { pageView } from './index';
 
 const Layout = () => {
     const windowSize = useWindowSize();
