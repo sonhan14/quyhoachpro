@@ -44,9 +44,23 @@ const Layout = () => {
     );
 };
 
-function App() {
+const AppRoutes = ({ onLocationChange }) => {
     const location = useLocation();
+
+    useEffect(() => {
+        if (onLocationChange) {
+            onLocationChange(location.pathname + location.search);
+        }
+    }, [location, onLocationChange]);
+
+    return null; // Không cần hiển thị gì
+};
+
+function App() {
+
     const datauser = useSelector((state) => state.account.dataUser);
+
+
     const item = [
         {
             path: '/',
@@ -145,11 +159,16 @@ function App() {
     }
 
     const router = createBrowserRouter(item);
-    useEffect(() => {
-        pageView(location.pathname + location.search);
-    }, [location]);
 
-    return <>{<RouterProvider router={router} />}</>;
+
+    return (
+        <>
+            <RouterProvider router={router}>
+                {/* Sử dụng AppRoutes để theo dõi thay đổi location */}
+                <AppRoutes onLocationChange={(path) => pageView(path)} />
+            </RouterProvider>
+        </>
+    );
 }
 
 export default App;

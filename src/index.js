@@ -7,14 +7,13 @@ import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
-
 import ReactGA from "react-ga4";
+
 ReactGA.initialize("G-T6NML9MMY9");
 
 export const pageView = (url) => {
     ReactGA.send({ hitType: 'pageview', page: url });
 };
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
